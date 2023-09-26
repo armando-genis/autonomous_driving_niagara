@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="car" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="niagara_car" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <link
     name="base_link">
     <inertial>
@@ -22,7 +22,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find niagara_model)/meshes/base_link.STL" />
+          filename="file://$(find niagara_model)/meshes/base_link_w_roof.STL" />
       </geometry>
       <material
         name="">
@@ -36,10 +36,12 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find niagara_model)/meshes/base_link.STL" />
+          filename="file://$(find niagara_model)/meshes/base_link_w_roof.STL" />
       </geometry>
     </collision>
   </link>
+
+
   <link
     name="right_front">
     <inertial>
@@ -84,10 +86,10 @@
     name="right_front_j"
     type="continuous">
     <origin
-      xyz="0.787346576344423 -0.395625727164768 -0.109492959255616"
+      xyz="0.0 0.0 0.0"
       rpy="0 0 0" />
     <parent
-      link="base_link" />
+      link="right_front_steering" />
     <child
       link="right_front" />
     <axis
@@ -137,10 +139,10 @@
     name="left_front_j"
     type="continuous">
     <origin
-      xyz="0.790705328433337 0.389779978280481 -0.109492959255612"
+      xyz="0.0 0.0 0.0"
       rpy="0 0 0" />
     <parent
-      link="base_link" />
+      link="left_front_steering" />
     <child
       link="left_front" />
     <axis
@@ -199,6 +201,8 @@
     <axis
       xyz="0 1 0" />
   </joint>
+
+
   <link
     name="right_rear">
     <inertial>
@@ -239,6 +243,8 @@
       </geometry>
     </collision>
   </link>
+
+
   <joint
     name="right_rear_j"
     type="continuous">
@@ -252,6 +258,45 @@
     <axis
       xyz="0 1 0" />
   </joint>
+
+
+  <link name="base_footprint" />
+
+  <joint name="base_link_to_base_footprint" type="fixed">
+      <origin xyz="0 0 0.28" rpy="0 0 0" />
+      <parent link="base_footprint" />
+      <child link="base_link" />
+  </joint>
+
+
+  
+  <link name="right_front_steering" />
+
+  <!-- Joint for right_front wheel which combines steering and rotation -->
+  <joint name="right_front_steering_joint" type="revolute">
+      <origin xyz="0.787346576344423 -0.395625727164768 -0.109492959255616" rpy="0 0 0" />
+      <parent link="base_link" />
+      <child link="right_front_steering" />
+      <axis xyz="0 0 1" />
+      <limit lower="-0.785398" upper="0.785398" velocity="1" effort="300"/> <!-- assuming +/- 45 degrees of steering -->
+  </joint>
+
+
+
+  <link name="left_front_steering" />
+
+  <joint name="left_front_steering_joint" type="revolute">
+      <origin xyz="0.790705328433337 0.389779978280481 -0.109492959255612" rpy="0 0 0" />
+      <parent link="base_link" />
+      <child link="left_front_steering" />
+      <axis xyz="0 0 1" />
+      <limit lower="-0.785398" upper="0.785398" velocity="1" effort="300"/> <!-- assuming +/- 45 degrees of steering -->
+  </joint>
+
+
+
+    <!-- Add the remaining xacros -->
+    <xacro:include filename="$(find niagara_model)/urdf/niagara.gazebo" />
 
 
 </robot>
