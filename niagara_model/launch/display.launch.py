@@ -7,14 +7,14 @@ from launch.actions import DeclareLaunchArgument
 def generate_launch_description():
     pkg_share = launch_ros.substitutions.FindPackageShare(package='niagara_model').find('niagara_model')
     default_model_path = os.path.join(pkg_share, 'urdf/DasAutonomeAuto.urdf')
-    default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_config.rviz')
+    default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_new.rviz')
     world_path=os.path.join(pkg_share, 'world/empty_world.sdf')
     use_sim_time = LaunchConfiguration('use_sim_time') 
 
 
     # Position and orientation
     # [X, Y, Z]
-    position = [0.0, 0.0, 0.0]
+    position = [0.0, 0.0, 0.035859]
     # [Roll, Pitch, Yaw]
     orientation = [0.0, 0.0, 0.0]
     

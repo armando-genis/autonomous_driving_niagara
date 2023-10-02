@@ -5,8 +5,8 @@ import os
 
 def generate_launch_description():
     pkg_share = launch_ros.substitutions.FindPackageShare(package='niagara_model').find('niagara_model')
-    default_model_path = os.path.join(pkg_share, 'urdf/meine_model.urdf')
-    default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_config.rviz')
+    default_model_path = os.path.join(pkg_share, 'urdf/DasAutonomeAuto.urdf')
+    default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_new.rviz')
 
     robot_state_publisher_node = launch_ros.actions.Node(
         package='robot_state_publisher',

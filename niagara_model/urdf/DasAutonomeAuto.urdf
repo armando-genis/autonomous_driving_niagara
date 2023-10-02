@@ -2,6 +2,9 @@
 <robot name="dasautonomeauto" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 
+      <!-- Add the remaining xacros -->
+    <xacro:include filename="$(find niagara_model)/urdf/Autoreifen.xacro" />
+
 
     <!-- Robot mechanical and motor parameters -->
     <xacro:property name="PI" value="3.1415926535897931"/>
@@ -29,7 +32,7 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="file://$(find niagara_model)/meshes/base_link.STL" />
+                <mesh filename="file://$(find niagara_model)/meshes/base_link_w_roof.STL" />
             </geometry>
             <material name="white">
                 <color rgba="0.1 0.1 0.1 1"/>
@@ -38,18 +41,17 @@
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0 " />
             <geometry>
-                <mesh filename="file://$(find niagara_model)/meshes/base_link.STL" />
+                <mesh filename="file://$(find niagara_model)/meshes/base_link_w_roof.STL" />
             </geometry>
         </collision>     
     </link>
 
 
-      <!-- Add the remaining xacros -->
-    <xacro:include filename="$(find niagara_model)/urdf/Autoreifen.xacro" />
 
-
-
-
+    <xacro:front_wheel lr_prefix="left" fr_prefix="rear" lr_reflect="1" fr_reflect="1" />
+    <xacro:front_wheel lr_prefix="right" fr_prefix="rear" lr_reflect="-1" fr_reflect="1" />
+    <xacro:rear_wheel lr_prefix="left" fr_prefix="front" lr_reflect="1" fr_reflect="-1" />
+    <xacro:rear_wheel lr_prefix="right" fr_prefix="front" lr_reflect="-1" fr_reflect="-1" />
 
 
 </robot>
