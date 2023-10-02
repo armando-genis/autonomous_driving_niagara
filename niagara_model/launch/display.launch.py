@@ -6,10 +6,11 @@ from launch.actions import DeclareLaunchArgument
 
 def generate_launch_description():
     pkg_share = launch_ros.substitutions.FindPackageShare(package='niagara_model').find('niagara_model')
-    default_model_path = os.path.join(pkg_share, 'urdf/Ensamblaje_final.urdf')
+    default_model_path = os.path.join(pkg_share, 'urdf/meine_model.urdf')
     default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_config.rviz')
     world_path=os.path.join(pkg_share, 'world/empty_world.sdf')
     use_sim_time = LaunchConfiguration('use_sim_time') 
+
 
     # Position and orientation
     # [X, Y, Z]
@@ -47,10 +48,10 @@ def generate_launch_description():
     spawn_entity = launch_ros.actions.Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
-        arguments=['-entity', 'racecar', '-x', str(position[0]), '-y', str(position[1]), '-z', str(position[2]), '-R', str(orientation[0]), '-P', str(orientation[1]), '-Y', str(orientation[2]),'-topic', '/robot_description'],
+        arguments=['-entity', 'niagara_car2', '-x', str(position[0]), '-y', str(position[1]), '-z', str(position[2]), '-R', str(orientation[0]), '-P', str(orientation[1]), '-Y', str(orientation[2]),'-topic', '/robot_description'],
         output='screen'
     )
-
+    
 
     return launch.LaunchDescription([
 
