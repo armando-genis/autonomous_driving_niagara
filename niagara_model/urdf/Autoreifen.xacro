@@ -1,18 +1,15 @@
 <?xml version="1.0"?>
 <robot name="dasautonomeauto" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-
-
   <!-- hub_dia and tire_dia are the diameters of the hub and tire,
        respectively. hex_hub_depth is the distance that the hex hub is
        inset from the outer edge of the tire. It is set so that each wheel
        is a "zero offset" wheel. hex_hub_depth = tire_width / 2 -
        axle_length. -->
-    <xacro:property name="tire_dia" value="0.350"/>  <!-- Reduced from 0.440 -->
-    <xacro:property name="tire_width" value="0.195"/>  <!-- Reduced from 0.195 -->
-    <xacro:property name="hub_dia" value="0.235"/>  <!-- Reduced from 0.235 -->
+  <xacro:property name="tire_dia" value="0.350"/>  <!-- Reduced from 0.440 -->
+  <xacro:property name="tire_width" value="0.195"/>  <!-- Reduced from 0.195 -->
+  <xacro:property name="hub_dia" value="0.235"/>  <!-- Reduced from 0.235 -->
 
-  
   <xacro:property name="hex_hub_depth" value="0.120"/> <!-- or +0.072 -->  
   <xacro:property name="wheel_mass" value="8.0"/>   <!-- check -->
 
@@ -41,7 +38,6 @@
   <xacro:property name="suspension_joint_damping" value="0.2" />
   <xacro:property name="suspension_joint_friction" value="0.7" />
   
-
   <!-- axle eff limit = 2 * stall_torque 
        as a function of the max gradient (15%) with overall max payload (600Kg) * wheel_radius
        (calculating this way, it should be divided by 2 if 2 motors are used)
@@ -122,7 +118,7 @@
       <parent link="base_link"/>
       <child link="${child}"/>
      
-      <origin xyz="${fr_reflect * 0.90902595238888}
+      <origin xyz="${fr_reflect * 0.80902595238888}
                    ${lr_reflect * ((hex_hub_dist / 2) - axle_length)}
                    ${-wheel_travel}"/>
                   <!-- ${(wheel_travel / 2) - shock_z_offset}"/-->

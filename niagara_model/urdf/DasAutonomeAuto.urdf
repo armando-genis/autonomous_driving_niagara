@@ -4,8 +4,7 @@
 
       <!-- Add the remaining xacros -->
     <xacro:include filename="$(find niagara_model)/urdf/Autoreifen.xacro" />
-
-
+    
     <!-- Robot mechanical and motor parameters -->
     <xacro:property name="PI" value="3.1415926535897931"/>
     <xacro:property name="wheel_width" value="0.175" />

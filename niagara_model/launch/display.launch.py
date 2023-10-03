@@ -10,6 +10,7 @@ def generate_launch_description():
     default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_new.rviz')
     world_path=os.path.join(pkg_share, 'world/world_sin.sdf')
     use_sim_time = LaunchConfiguration('use_sim_time') 
+    control_config = os.path.join(pkg_share, 'config/NiagaraControl.yaml')
 
     # Position and orientation
     # [X, Y, Z]
@@ -50,8 +51,7 @@ def generate_launch_description():
         arguments=['-entity', 'dasautonomeauto', '-x', str(position[0]), '-y', str(position[1]), '-z', str(position[2]), '-R', str(orientation[0]), '-P', str(orientation[1]), '-Y', str(orientation[2]),'-topic', '/robot_description'],
         output='screen'
     )
-    
-
+        
     return launch.LaunchDescription([
 
         launch.actions.DeclareLaunchArgument(name='model', default_value=default_model_path,
