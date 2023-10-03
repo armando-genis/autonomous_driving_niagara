@@ -2,7 +2,7 @@ import launch
 from launch.substitutions import Command, LaunchConfiguration
 import launch_ros
 import os
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, ExecuteProcess
 
 def generate_launch_description():
     pkg_share = launch_ros.substitutions.FindPackageShare(package='niagara_model').find('niagara_model')
@@ -11,6 +11,7 @@ def generate_launch_description():
     world_path=os.path.join(pkg_share, 'world/world_sin.sdf')
     use_sim_time = LaunchConfiguration('use_sim_time') 
     control_config = os.path.join(pkg_share, 'config/NiagaraControl.yaml')
+    
 
     # Position and orientation
     # [X, Y, Z]
@@ -51,17 +52,32 @@ def generate_launch_description():
         arguments=['-entity', 'dasautonomeauto', '-x', str(position[0]), '-y', str(position[1]), '-z', str(position[2]), '-R', str(orientation[0]), '-P', str(orientation[1]), '-Y', str(orientation[2]),'-topic', '/robot_description'],
         output='screen'
     )
+    
+    load_joint_state_controller = ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+             'joint_trajectory_controller'],
+        output='screen'
+    )
+
+    load_diff_drive_base_controller = ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+             'joint_state_broadcaster'],
+        output='screen'
+    )
         
     return launch.LaunchDescription([
-
+        
         launch.actions.DeclareLaunchArgument(name='model', default_value=default_model_path,
                                             description='Absolute path to robot urdf file'),
         launch.actions.DeclareLaunchArgument(name='rvizconfig', default_value=default_rviz_config_path,
                                             description='Absolute path to rviz config file'),
         launch.actions.ExecuteProcess(cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_init.so', '-s', 'libgazebo_ros_factory.so', world_path], output='screen'),
         declare_use_sim_time_cmd,
-        joint_state_publisher_node,
+        # joint_state_publisher_node,
         robot_state_publisher_node,
         spawn_entity,
-        rviz_node
+        rviz_node,
+        load_diff_drive_base_controller,
+        load_joint_state_controller
+        
     ])
