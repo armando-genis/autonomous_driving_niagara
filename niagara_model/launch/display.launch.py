@@ -73,7 +73,7 @@ def generate_launch_description():
                                             description='Absolute path to rviz config file'),
         launch.actions.ExecuteProcess(cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_init.so', '-s', 'libgazebo_ros_factory.so', world_path], output='screen'),
         declare_use_sim_time_cmd,
-        # joint_state_publisher_node,
+        joint_state_publisher_node,
         robot_state_publisher_node,
         spawn_entity,
         rviz_node,
