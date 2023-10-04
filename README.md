@@ -1,7 +1,15 @@
 # autonomous_driving_niagara
  autonomous golf car for Monterrey Institute of Technology Mexico city
  
- colcon build --packages-select niagara_model
+ 
+source /opt/ros/foxy/setup.bash #for ros2 foxy
+source /opt/ros/humble/setup.bash #for ro2 humble
+colcon build --packages-select niagara_model
+ros2 launch niagara_model display.launch.py
+ros2 launch niagara_model display_gui.launch.py
+ 
+ 
+ 
  
  sudo apt update
 sudo apt install ros-humble-controller-manager

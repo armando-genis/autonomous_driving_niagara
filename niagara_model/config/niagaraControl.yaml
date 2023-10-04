@@ -1,4 +1,4 @@
-dasautonomeauto:
+controller_manager:
   ros__parameters:
     left_front_shock_controller:
       type: effort_controllers/JointEffortController

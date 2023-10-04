@@ -2,11 +2,11 @@ import launch
 from launch.substitutions import Command, LaunchConfiguration
 import launch_ros
 import os
-from launch.actions import DeclareLaunchArgument, ExecuteProcess
+from launch.actions import DeclareLaunchArgument, ExecuteProcess, TimerAction
 
 def generate_launch_description():
     pkg_share = launch_ros.substitutions.FindPackageShare(package='niagara_model').find('niagara_model')
-    default_model_path = os.path.join(pkg_share, 'urdf/DasAutonomeAuto.urdf')
+    default_model_path = os.path.join(pkg_share, 'urdf/Ensamblaje_final.urdf')
     default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_new.rviz')
     world_path=os.path.join(pkg_share, 'world/world_sin.sdf')
     use_sim_time = LaunchConfiguration('use_sim_time') 
@@ -15,7 +15,7 @@ def generate_launch_description():
 
     # Position and orientation
     # [X, Y, Z]
-    position = [0.0, 0.0, 0.035859]
+    position = [0.0, 0.0, 0.0]
     # [Roll, Pitch, Yaw]
     orientation = [0.0, 0.0, 0.0]
     
@@ -53,15 +53,27 @@ def generate_launch_description():
         output='screen'
     )
     
-    load_joint_state_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
-             'joint_trajectory_controller'],
-        output='screen'
-    )
+    # load_joint_state_controller = ExecuteProcess(
+    #     cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+    #          'joint_trajectory_controller'],
+    #     output='screen'
+    # )
 
     load_diff_drive_base_controller = ExecuteProcess(
         cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
              'joint_state_broadcaster'],
+        output='screen'
+    )
+    
+    # effort_controller = ExecuteProcess(
+    #     cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+    #          'effort_controller'],
+    #     output='screen'
+    # )
+    
+    velocity_controller = ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+             'velocity_controller'],
         output='screen'
     )
         
@@ -77,7 +89,11 @@ def generate_launch_description():
         robot_state_publisher_node,
         spawn_entity,
         rviz_node,
-        load_diff_drive_base_controller,
-        load_joint_state_controller
-        
+        TimerAction(
+            actions=[
+                velocity_controller,
+                
+            ],
+            period='7.0',  # delay in seconds before executing the actions
+        ),
     ])

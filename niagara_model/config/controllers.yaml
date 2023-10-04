@@ -5,8 +5,50 @@ controller_manager:
     joint_trajectory_controller:
       type: joint_trajectory_controller/JointTrajectoryController
 
+    velocity_controller:
+      type: velocity_controllers/JointVelocityController
+
+    effort_controller:
+      type: effort_controllers/JointVelocityController
+
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
+
+effort_controller:
+  ros__parameters:
+    joints:
+      - left_rear_shock
+      - right_rear_shock
+      - left_front_shock
+      - right_front_shock
+    interface_name: effort
+    command_interfaces:
+      - effort
+    state_interfaces:
+      - effort
+      - position
+    pid:
+      p: 500.0
+      i: 10.0
+      d: 100.0
+      i_clamp: 0.1
+
+velocity_controller:
+  ros__parameters:
+    joints:
+      - left_rear_axle
+
+    interface_name: velocity
+    command_interfaces:
+      - velocity
+    state_interfaces:
+      - velocity
+    pid:
+      p: 1500.0
+      i: 100.0
+      d: 750.0
+      i_clamp: 0.1
+
 
 joint_trajectory_controller:
   ros__parameters:
@@ -18,4 +60,8 @@ joint_trajectory_controller:
       - position
     state_interfaces:
       - position
-      - velocity
+    pid:
+      p: 500.0
+      i: 10.0
+      d: 100.0
+      i_clamp: 0.1

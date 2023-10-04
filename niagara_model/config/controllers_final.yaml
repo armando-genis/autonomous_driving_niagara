@@ -1,0 +1,25 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+
+velocity_controller:
+  ros__parameters:
+    joints:
+      - right_front_j
+      - left_front_j
+      - right_rear_j
+      - left_rear_j
+
+    interface_name: velocity
+    command_interfaces:
+      - velocity
+    state_interfaces:
+      - velocity
+    pid:
+      p: 1500.0
+      i: 100.0
+      d: 750.0
+      i_clamp: 0.1

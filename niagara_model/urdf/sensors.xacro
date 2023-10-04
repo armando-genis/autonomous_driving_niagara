@@ -10,19 +10,61 @@
                 <param name="min">-5</param>
                 <param name="max">5</param>
             </command_interface>
-            <state_interface name="velocity"/>
+
             <state_interface name="position"/>
-            <state_interface name="effort"/>
+
         </joint>
         <joint name="left_steering_joint">
             <command_interface name="position">
                 <param name="min">-5</param>
                 <param name="max">5</param>
             </command_interface>
-            <state_interface name="velocity"/>
+
             <state_interface name="position"/>
+
+        </joint>
+
+        <joint name="left_rear_shock">
+            <command_interface name="effort">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+            </command_interface>
             <state_interface name="effort"/>
         </joint>
+
+        <joint name="right_rear_shock">
+            <command_interface name="effort">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+            </command_interface>
+            <state_interface name="effort"/>
+        </joint>
+
+        <joint name="left_front_shock">
+            <command_interface name="effort">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+            </command_interface>
+            <state_interface name="effort"/>
+        </joint>
+
+        <joint name="right_front_shock">
+            <command_interface name="effort">
+                <param name="min">-1</param>
+                <param name="max">1</param>
+            </command_interface>
+            <state_interface name="effort"/>
+        </joint>
+
+        <joint name="left_rear_axle">
+            <command_interface name="velocity"/>
+            <state_interface name="velocity"/>
+        </joint>
+
+
+
+
+
     </ros2_control>
 
     <gazebo>
