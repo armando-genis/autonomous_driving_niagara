@@ -147,6 +147,8 @@
     <axis
       xyz="-0.0254593284537916 -0.99967585876357 0" />
   </joint>
+
+  
   <link
     name="left_rear">
     <inertial>
@@ -187,6 +189,7 @@
       </geometry>
     </collision>
   </link>
+  
   <joint
     name="left_rear_j"
     type="continuous">
@@ -200,6 +203,10 @@
     <axis
       xyz="0 1 0" />
   </joint>
+
+
+
+
   <link
     name="right_rear">
     <inertial>

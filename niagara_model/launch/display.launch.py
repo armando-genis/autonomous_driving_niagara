@@ -6,11 +6,11 @@ from launch.actions import DeclareLaunchArgument, ExecuteProcess, TimerAction
 
 def generate_launch_description():
     pkg_share = launch_ros.substitutions.FindPackageShare(package='niagara_model').find('niagara_model')
-    default_model_path = os.path.join(pkg_share, 'urdf/Ensamblaje_final.urdf')
+    default_model_path = os.path.join(pkg_share, 'urdf/DasAutonomeAuto.urdf')
     default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_new.rviz')
     world_path=os.path.join(pkg_share, 'world/world_sin.sdf')
     use_sim_time = LaunchConfiguration('use_sim_time') 
-    control_config = os.path.join(pkg_share, 'config/NiagaraControl.yaml')
+
     
 
     # Position and orientation
@@ -53,23 +53,6 @@ def generate_launch_description():
         output='screen'
     )
     
-    # load_joint_state_controller = ExecuteProcess(
-    #     cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
-    #          'joint_trajectory_controller'],
-    #     output='screen'
-    # )
-
-    load_diff_drive_base_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
-             'joint_state_broadcaster'],
-        output='screen'
-    )
-    
-    # effort_controller = ExecuteProcess(
-    #     cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
-    #          'effort_controller'],
-    #     output='screen'
-    # )
     
     velocity_controller = ExecuteProcess(
         cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',

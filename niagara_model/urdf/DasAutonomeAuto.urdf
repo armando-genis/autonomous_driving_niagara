@@ -2,14 +2,15 @@
 <robot name="dasautonomeauto" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 
-      <!-- Add the remaining xacros -->
-    <xacro:include filename="$(find niagara_model)/urdf/Autoreifen2.xacro" />
+      <!-- Add the wheels xacros -->
+    <xacro:include filename="$(find niagara_model)/urdf/Autoreifen.xacro" />
+
     <!-- Robot mechanical and motor parameters -->
     <xacro:property name="PI" value="3.1415926535897931"/>
     <xacro:property name="wheel_width" value="0.175" />
     <xacro:property name="clearance" value="${0.3/2.0}" />
 
-
+    <!--  BASE FOOTPRINT  -->
     <link name="base_footprint"/>
 
     <joint name="base_footprint_joint" type="fixed">
@@ -43,10 +44,10 @@
         </collision>     
     </link>
 
-    <!-- <xacro:front_wheel lr_prefix="left" fr_prefix="rear" lr_reflect="1" fr_reflect="1" />
-    <xacro:front_wheel lr_prefix="right" fr_prefix="rear" lr_reflect="-1" fr_reflect="1" />
-    <xacro:rear_wheel lr_prefix="left" fr_prefix="front" lr_reflect="1" fr_reflect="-1" />
-    <xacro:rear_wheel lr_prefix="right" fr_prefix="front" lr_reflect="-1" fr_reflect="-1" /> -->
+  <xacro:front_wheel_to_base lr_prefix="left" fr_prefix="front" lr_reflect="1" fr_reflect="1" />
+  <xacro:front_wheel_to_base lr_prefix="right" fr_prefix="front" lr_reflect="-1" fr_reflect="1" />
+  <!-- <xacro:rear_wheel lr_prefix="left" fr_prefix="front" lr_reflect="1" fr_reflect="-1" />
+  <xacro:rear_wheel lr_prefix="right" fr_prefix="front" lr_reflect="-1" fr_reflect="-1" /> -->
 
     <!-- <xacro:include filename="$(find niagara_model)/urdf/sensors.xacro" /> -->
 

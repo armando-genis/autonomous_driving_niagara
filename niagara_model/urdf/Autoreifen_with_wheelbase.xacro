@@ -11,16 +11,12 @@
 
 
   <xacro:property name="wheelbase" value="2.1"/>
-  <xacro:property name="hex_hub_dist" value="0.9191"/> 
+  <xacro:property name="hex_hub_dist" value="0.9191"/>  <!-- 1.127 0.742 0.900 check -->
+  <xacro:property name="axle_length" value="0.120"/> 
   <xacro:property name="wheel_travel" value="0.209492959255614"/> 
 
   <xacro:property name="axle_eff_limit" value="204.95"/>
   <xacro:property name="axle_vel_limit" value="39.02"/>
-
-  <!-- Properties of the car -->
-  <xacro:property name="front_wheel_x" value="0.787346576344423"/>
-  <xacro:property name="front_wheel_y" value="0.495625727164768"/>
-  <xacro:property name="front_wheel_z" value="0.1094929592556163"/>
 
 
   <xacro:macro name="thick_walled_tube_inertial"
@@ -45,15 +41,15 @@
     </inertial>
   </xacro:macro>
 
-    <!-- front wheel -->
-  <xacro:macro name="front_wheel" params="lr_prefix fr_prefix lr_reflect">
+    
+  <xacro:macro name="wheel" params="lr_prefix fr_prefix lr_reflect">
 
 
     <link name="${lr_prefix}_${fr_prefix}_wheel">
       <visual>
         <origin xyz="0
                      0
-                     ${lr_reflect * ((tire_width / 2 - hex_hub_depth))}" rpy="0 0 0"/>
+                     ${lr_reflect * (axle_length - (tire_width / 2 - hex_hub_depth))}"/>
         <geometry>
           <cylinder radius="${tire_dia / 2}" length="${tire_width}"/>
         </geometry>
@@ -63,7 +59,7 @@
       <collision>
         <origin xyz="0                     
                      0
-                     ${lr_reflect * ((tire_width / 2 - hex_hub_depth))}" rpy="0 0 0"/>
+                     ${lr_reflect * (axle_length - (tire_width / 2 - hex_hub_depth))}"/>
         <geometry>
           <cylinder radius="${tire_dia / 2}" length="${tire_width}"/>
         </geometry>
@@ -78,20 +74,22 @@
     <joint name="${lr_prefix}_${fr_prefix}_axle" type="continuous">
       <parent link="base_link"/>
       <child link="${lr_prefix}_${fr_prefix}_wheel"/>
-      <origin xyz="${fr_reflect * front_wheel_x} ${lr_reflect * front_wheel_y} ${-front_wheel_z}" rpy="1.5708 0 0"/>
+      <origin xyz="${fr_reflect * wheelbase / 2}
+                   ${lr_reflect * ((hex_hub_dist / 2) - axle_length)}
+                   ${-wheel_travel}" rpy="1.5708 0 0"/>
       <axis xyz="0 0 -1"/>
       <limit effort="${axle_eff_limit}" velocity="${axle_vel_limit}"/>
     </joint>
 
   </xacro:macro>
 
-    <xacro:macro name="front_wheel_to_base" params="lr_prefix fr_prefix lr_reflect fr_reflect">
-        <xacro:front_wheel lr_prefix="${lr_prefix}" fr_prefix="${fr_prefix}" lr_reflect="${lr_reflect}"/>
+    <xacro:macro name="front_wheel" params="lr_prefix fr_prefix lr_reflect fr_reflect">
+        <xacro:wheel lr_prefix="${lr_prefix}" fr_prefix="${fr_prefix}" lr_reflect="${lr_reflect}"/>
     </xacro:macro>
 
-    <!-- <xacro:macro name="rear_wheel" params="lr_prefix fr_prefix lr_reflect fr_reflect">
+    <xacro:macro name="rear_wheel" params="lr_prefix fr_prefix lr_reflect fr_reflect">
         <xacro:wheel lr_prefix="${lr_prefix}" fr_prefix="${fr_prefix}" lr_reflect="${lr_reflect}"/>
-    </xacro:macro> -->
+    </xacro:macro>
 
 
 
