@@ -5,6 +5,7 @@
 source /opt/ros/foxy/setup.bash #for ros2 foxy
 source /opt/ros/humble/setup.bash #for ro2 humble
 colcon build --packages-select niagara_model
+source install/setup.bash
 ros2 launch niagara_model display.launch.py
 ros2 launch niagara_model display_gui.launch.py
  
@@ -21,3 +22,8 @@ ros2 control load_controller --set-state active joint_trajectory_controller
 source install/setup.bash
 colcon build --packages-select niagara_controller_cpp
 ros2 run niagara_controller_cpp publish_trajectory
+
+
+ps aux | grep gazebo
+kill -9 22656
+

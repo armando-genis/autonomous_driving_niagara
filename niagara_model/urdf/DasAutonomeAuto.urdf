@@ -2,8 +2,14 @@
 <robot name="dasautonomeauto" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 
+    <xacro:arg name="gpu" default="false"/>
+    <xacro:property name="gpu" value="$(arg gpu)" />
+
       <!-- Add the wheels xacros -->
     <xacro:include filename="$(find niagara_model)/urdf/Autoreifen.xacro" />
+
+
+
 
     <!-- Robot mechanical and motor parameters -->
     <xacro:property name="PI" value="3.1415926535897931"/>
@@ -48,9 +54,12 @@
     <xacro:front_wheel_to_base lr_prefix="right" fr_prefix="front" lr_reflect="-1" fr_reflect="1" />
     <xacro:rear_wheel_to_base lr_prefix="left" fr_prefix="rear" lr_reflect="1" fr_reflect="-1" />
     <xacro:rear_wheel_to_base lr_prefix="right" fr_prefix="rear" lr_reflect="-1" fr_reflect="-1" />
+    
+    <xacro:include filename="$(find niagara_model)/urdf/VLP-16.xacro"/>
+    <xacro:VLP-16 parent="base_link" name="velodyne" topic="/velodyne_points" hz="10" samples="440" gpu="${gpu}"/>
+        
 
     <xacro:include filename="$(find niagara_model)/urdf/sensors.xacro" />
-
 
 
 
