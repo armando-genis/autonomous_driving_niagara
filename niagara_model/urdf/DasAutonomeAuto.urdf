@@ -56,7 +56,7 @@
     <xacro:rear_wheel_to_base lr_prefix="right" fr_prefix="rear" lr_reflect="-1" fr_reflect="-1" />
     
     <xacro:include filename="$(find niagara_model)/urdf/VLP-16.xacro"/>
-    <xacro:VLP-16 parent="base_link" name="velodyne" topic="/velodyne_points" hz="10" samples="440" gpu="${gpu}"/>
+    <xacro:VLP-16 parent="base_link" name="velodyne" topic="/points_raw" hz="10" samples="440" gpu="${gpu}"/>
         
 
     <xacro:include filename="$(find niagara_model)/urdf/sensors.xacro" />

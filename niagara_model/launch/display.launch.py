@@ -7,11 +7,9 @@ from launch.actions import DeclareLaunchArgument, ExecuteProcess, TimerAction
 def generate_launch_description():
     pkg_share = launch_ros.substitutions.FindPackageShare(package='niagara_model').find('niagara_model')
     default_model_path = os.path.join(pkg_share, 'urdf/DasAutonomeAuto.urdf')
-    default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_new.rviz')
+    default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_lidar3d.rviz')
     world_path=os.path.join(pkg_share, 'world/world_sin.sdf')
     use_sim_time = LaunchConfiguration('use_sim_time') 
-
-    
 
     # Position and orientation
     # [X, Y, Z]
