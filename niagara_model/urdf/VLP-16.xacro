@@ -18,6 +18,7 @@
       <visual>
         <geometry>
           <cylinder length="0.073" radius="0.04" />
+          <!-- <mesh filename="file://$(find niagara_model)/meshes/os1_64.dae" /> -->
         </geometry>
       </visual>
       <visual>
@@ -29,6 +30,7 @@
         <origin rpy="0 0 0" xyz="0 0 0.03585"/>
         <geometry>
           <cylinder radius="0.0516" length="0.0717"/>
+          <!-- <mesh filename="file://$(find niagara_model)/meshes/os1_64.dae" /> -->
         </geometry>
       </collision>
     </link>
@@ -48,7 +50,7 @@
       <visual>
         <origin xyz="0 0 -0.0377"/>
         <geometry>
-          <!-- <mesh filename="$(find niagara_model)/meshes/os1_64.dae"/> -->
+          <!-- <mesh filename="file://$(find niagara_model)/meshes/os1_64.dae" /> -->
           <cylinder length="0.073" radius="0.04" />
 
         </geometry>
