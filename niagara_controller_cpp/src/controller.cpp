@@ -9,7 +9,7 @@ int main(int argc, char **argv)
     auto publisher = node->create_publisher<std_msgs::msg::Float64MultiArray>("velocity_controller/commands", 10);
 
     std_msgs::msg::Float64MultiArray velocity_command;
-    velocity_command.data = {1.0, 1.0, 1.0, 1.0};  // Replace with your desired velocities
+    velocity_command.data = {1.0, 1.0};  // Replace with your desired velocities
 
     rclcpp::WallRate loop_rate(10);  // 10 Hz
     while (rclcpp::ok())

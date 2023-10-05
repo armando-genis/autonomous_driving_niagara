@@ -5,11 +5,14 @@ controller_manager:
     velocity_controller:
       type: velocity_controllers/JointGroupVelocityController
 
+    position_controller:
+      type: position_controllers/JointGroupPositionController
+
 velocity_controller:
   ros__parameters:
     joints:
-      - left_front_axle
-      - right_front_axle
+      - left_rear_axle
+      - right_rear_axle
 
     interface_name: velocity
     command_interfaces:
@@ -20,4 +23,21 @@ velocity_controller:
       p: 1500.0
       i: 100.0
       d: 750.0
+      i_clamp: 0.1
+
+position_controller:
+  ros__parameters:
+    joints:
+      - left_steering_joint
+      - right_steering_joint
+
+    interface_name: position
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+    pid:
+      p: 500.0
+      i: 10.0
+      d: 100.0
       i_clamp: 0.1

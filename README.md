@@ -18,3 +18,6 @@ sudo apt install ros-<distro>-ros2-control ros-<distro>-ros2-controllers
 ros2 control load_controller --set-state active joint_state_broadcaster
 ros2 control load_controller --set-state active joint_trajectory_controller
 
+source install/setup.bash
+colcon build --packages-select niagara_controller_cpp
+ros2 run niagara_controller_cpp publish_trajectory

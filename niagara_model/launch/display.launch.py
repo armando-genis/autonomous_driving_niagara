@@ -59,6 +59,12 @@ def generate_launch_description():
              'velocity_controller'],
         output='screen'
     )
+    
+    position_controller = ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+             'position_controller'],
+        output='screen'
+    )
         
     return launch.LaunchDescription([
         
@@ -75,7 +81,7 @@ def generate_launch_description():
         TimerAction(
             actions=[
                 velocity_controller,
-                
+                position_controller
             ],
             period='7.0',  # delay in seconds before executing the actions
         ),

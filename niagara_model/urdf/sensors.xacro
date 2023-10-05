@@ -6,15 +6,24 @@
             <plugin>gazebo_ros2_control/GazeboSystem</plugin>
         </hardware>
 
-
-        <joint name="left_front_axle">
+        <joint name="left_rear_axle">
             <command_interface name="velocity"/>
             <state_interface name="velocity"/>
         </joint>
 
-        <joint name="right_front_axle">
+        <joint name="right_rear_axle">
             <command_interface name="velocity"/>
             <state_interface name="velocity"/>
+        </joint>
+
+        <joint name="left_steering_joint">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
+        </joint>
+
+        <joint name="right_steering_joint">
+            <command_interface name="position"/>
+            <state_interface name="position"/>
         </joint>
 
     </ros2_control>
