@@ -51,7 +51,6 @@ def generate_launch_description():
         output='screen'
     )
     
-    
     velocity_controller = ExecuteProcess(
         cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
              'velocity_controller'],

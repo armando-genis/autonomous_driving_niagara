@@ -1,29 +1,45 @@
 # autonomous_driving_niagara
- autonomous golf car for Monterrey Institute of Technology Mexico city
- 
- 
+ Autonomous golf car for Monterrey Institute of Technology that uses Velodyne LiDAR and a Stereo Camara for environmental perception and an Ackermann steering controller for trajectory tracking.
+
+ ## Set up ROS2
+```bash
+cd ~/ros2_ws
 source /opt/ros/foxy/setup.bash #for ros2 foxy
 source /opt/ros/humble/setup.bash #for ro2 humble
+```
+
+# Niagara Model description
+```bash
 colcon build --packages-select niagara_model
 source install/setup.bash
-ros2 launch niagara_model display.launch.py
-ros2 launch niagara_model display_gui.launch.py
- 
- 
- 
- 
- sudo apt update
-sudo apt install ros-humble-controller-manager
-sudo apt update
-sudo apt install ros-<distro>-ros2-control ros-<distro>-ros2-controllers
-ros2 control load_controller --set-state active joint_state_broadcaster
-ros2 control load_controller --set-state active joint_trajectory_controller
-
-source install/setup.bash
+ros2 launch niagara_model display.launch.py #For launching with gazebo and rviz
+ros2 launch niagara_model display_gui.launch.py #For only launching rviz
+```
+# Niagara Controller
+```bash
 colcon build --packages-select niagara_controller_cpp
+source install/setup.bash
 ros2 run niagara_controller_cpp publish_trajectory
+```
+# Velodyne Lidar Gazebo Plugin
+```bash
+colcon build --packages-select velodyne_gazebo_plugins
+source install/setup.bash
+```
 
-
+# Kill gazebo
+```bash
 ps aux | grep gazebo
 kill -9 22656
+```
 
+## Install
+```bash
+sudo apt install ros-<distro>-ros2-control ros-<distro>-ros2-controllers
+sudo apt install ros-<distro>-controller-manager
+
+```
+
+## Authors
+
+- [@armando-genis](https://github.com/armando-genis)
