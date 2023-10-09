@@ -68,7 +68,7 @@
       <xacro:thick_walled_tube_inertial
           inner_rad="${hub_dia / 2}" outer_rad="${tire_dia / 2}"
           height="${tire_width}" mass="${wheel_mass}"/>
-          
+
     </link>
 
     <joint name="${lr_prefix}_steering_joint" type="revolute">
