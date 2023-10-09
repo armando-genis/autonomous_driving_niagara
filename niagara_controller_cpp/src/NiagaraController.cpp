@@ -8,8 +8,8 @@
 using namespace std;
 
 #define PI 3.1415926535
-#define WHEEL_DISTANCE 2.5     // Change this value based on your robot's configuration
-#define WHEEL_DIAMETER 0.470   // Change this value based on your robot's wheel size
+#define WHEEL_DISTANCE 2.5     
+#define WHEEL_DIAMETER 0.470   
 
 class NiagaraController : public rclcpp::Node
 {
@@ -64,8 +64,8 @@ void NiagaraController::commandCallback(const ackermann_msgs::msg::AckermannDriv
     position_pub_->publish(*pos_command);
 
     linearSpeedXMps_ = msg->drive.speed;
-    UpdateOdometry();
-    PublishOdometry();
+    // UpdateOdometry();
+    // PublishOdometry();
 }
 
 void NiagaraController::UpdateOdometry() {

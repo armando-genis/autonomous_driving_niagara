@@ -62,6 +62,13 @@ def generate_launch_description():
              'position_controller'],
         output='screen'
     )
+    
+    joints_setter_lainch = launch_ros.actions.Node(
+        package='niagara_controller_cpp',
+        executable='publish_trajectory',
+        name='publish_trajectory',
+        output='screen'
+    )
         
     return launch.LaunchDescription([
         
@@ -79,6 +86,7 @@ def generate_launch_description():
             actions=[
                 velocity_controller,
                 position_controller
+                # joints_setter_lainch
             ],
             period='7.0',  # delay in seconds before executing the actions
         ),

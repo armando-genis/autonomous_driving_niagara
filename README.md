@@ -27,6 +27,13 @@ colcon build --packages-select velodyne_gazebo_plugins
 source install/setup.bash
 ```
 
+# Ackermann teleop
+```bash
+colcon build --packages-select ackermann_teleop
+source install/setup.bash
+ros2 run ackermann_teleop ackermann_drive_keyop
+```
+
 # Kill gazebo
 ```bash
 ps aux | grep gazebo
