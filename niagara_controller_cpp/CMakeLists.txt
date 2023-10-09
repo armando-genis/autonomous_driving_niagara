@@ -27,7 +27,7 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-add_executable(publish_trajectory src/controller.cpp)
+add_executable(publish_trajectory src/NiagaraController.cpp)
 ament_target_dependencies(publish_trajectory trajectory_msgs rclcpp std_msgs ackermann_msgs nav_msgs tf2_ros)
 
 install(TARGETS
