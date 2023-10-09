@@ -13,6 +13,8 @@ velocity_controller:
     joints:
       - left_rear_axle
       - right_rear_axle
+      - left_front_axle
+      - right_front_axle
 
     interface_name: velocity
     command_interfaces:

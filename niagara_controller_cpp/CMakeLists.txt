@@ -9,6 +9,11 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(trajectory_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(ackermann_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(tf2_ros REQUIRED)
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -23,7 +28,7 @@ if(BUILD_TESTING)
 endif()
 
 add_executable(publish_trajectory src/controller.cpp)
-ament_target_dependencies(publish_trajectory rclcpp trajectory_msgs)
+ament_target_dependencies(publish_trajectory trajectory_msgs rclcpp std_msgs ackermann_msgs nav_msgs tf2_ros)
 
 install(TARGETS
   publish_trajectory
