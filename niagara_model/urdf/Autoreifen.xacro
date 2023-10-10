@@ -34,7 +34,9 @@
   <xacro:property name="servo_stall_torque" value="50"/>  <!-- check -->
   <xacro:property name="servo_no_load_speed" value="25"/> <!-- check -->
 
-
+  <material name="black">
+      <color rgba="0 0 0 1"/>
+  </material>
 
   <xacro:macro name="thick_walled_tube_inertial"
                params="inner_rad outer_rad height mass">
@@ -53,7 +55,7 @@
 
   <xacro:macro name="null_inertial">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="4.5"/>
       <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
     </inertial>
   </xacro:macro>
@@ -63,11 +65,11 @@
 
     <link name="${lr_prefix}_steering_link">
 
-      <!-- <xacro:null_inertial/> -->
+      <xacro:null_inertial/>
 
-      <xacro:thick_walled_tube_inertial
+      <!-- <xacro:thick_walled_tube_inertial
           inner_rad="${hub_dia / 2}" outer_rad="${tire_dia / 2}"
-          height="${tire_width}" mass="${wheel_mass}"/>
+          height="${tire_width}" mass="${wheel_mass}"/> -->
 
     </link>
 
@@ -91,7 +93,8 @@
         <geometry>
           <cylinder radius="${tire_dia / 2}" length="${tire_width}"/>
         </geometry>
-        <material name="tire_mat"/>
+        <material name="black" />
+
       </visual>
 
       <collision>
@@ -133,7 +136,7 @@
         <geometry>
           <cylinder radius="${tire_dia / 2}" length="${tire_width}"/>
         </geometry>
-        <material name="tire_mat"/>
+        <material name="black" />
       </visual>
 
       <collision>

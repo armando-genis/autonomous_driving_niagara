@@ -1,5 +1,5 @@
 # autonomous_driving_niagara
- Autonomous golf car for Monterrey Institute of Technology that uses Velodyne LiDAR and a Stereo Camara for environmental perception and an Ackermann steering controller for trajectory tracking.
+Simulation for an Autonomous golf car for Monterrey Institute of Technology that uses Velodyne LiDAR and a Stereo Camara for environmental perception and an Ackermann steering controller for trajectory tracking.
 
  ## Set up ROS2
 ```bash
@@ -15,12 +15,7 @@ source install/setup.bash
 ros2 launch niagara_model display.launch.py #For launching with gazebo and rviz
 ros2 launch niagara_model display_gui.launch.py #For only launching rviz
 ```
-# Niagara Controller
-```bash
-colcon build --packages-select niagara_controller_cpp
-source install/setup.bash
-ros2 run niagara_controller_cpp publish_trajectory
-```
+
 # Velodyne Lidar Gazebo Plugin
 ```bash
 colcon build --packages-select velodyne_gazebo_plugins

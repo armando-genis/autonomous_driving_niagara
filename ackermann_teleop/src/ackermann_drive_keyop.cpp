@@ -7,7 +7,7 @@
 
 using namespace std;
 
-#define MAX_SPEED 5.0
+#define MAX_SPEED 8.0
 #define MAX_STEERING_ANGLE 0.7
 
 
@@ -71,9 +71,9 @@ char ackermann_drive_keyop::getch()
     fd_set read_fds;
     struct timeval timeout;
     FD_ZERO(&read_fds);
-    FD_SET(0, &read_fds);  // FD 0 is stdin
+    FD_SET(0, &read_fds); 
     timeout.tv_sec = 0;
-    timeout.tv_usec = 100000;  // 0.1 seconds
+    timeout.tv_usec = 100000; // 100 ms
     int num_ready = select(1, &read_fds, NULL, NULL, &timeout);
     if (num_ready > 0)
     {
@@ -96,16 +96,16 @@ void ackermann_drive_keyop::key_loop()
     char c;
     while (rclcpp::ok())
     {
-        c = getch();   // call your non-blocking input function
+        c = getch();
         switch(c)
         {
             case '\x41':  // Up arrow
-                speed_ += 0.05;
+                speed_ += 0.5;
                 // RCLCPP_INFO(this->get_logger(), "up array pressed");
 
                 break;
             case '\x42':  // Down arrow
-                speed_ -= 0.05;
+                speed_ -= 0.5;
                 break;
             case '\x43':  // Right arrow
                 steering_angle_ -= 0.1;
@@ -140,7 +140,7 @@ void ackermann_drive_keyop::pub_callback()
 void ackermann_drive_keyop::finalize()
 {
     auto ackermann_cmd_msg = ackermann_msgs::msg::AckermannDriveStamped();
-    ackermann_cmd_msg.header.stamp = this->now();  // Set the timestamp to the current time
+    ackermann_cmd_msg.header.stamp = this->now();  
     ackermann_cmd_msg.header.frame_id = "base_link";
     ackermann_cmd_msg.drive.speed = 0;
     ackermann_cmd_msg.drive.steering_angle = 0;
@@ -151,7 +151,7 @@ int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
     auto node = std::make_shared<ackermann_drive_keyop>();
-    std::thread key_loop_thread(&ackermann_drive_keyop::key_loop, node);  // Create a thread for the key_loop method
+    std::thread key_loop_thread(&ackermann_drive_keyop::key_loop, node);
     rclcpp::spin(node); 
     key_loop_thread.join();  
     rclcpp::shutdown();

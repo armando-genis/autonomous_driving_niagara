@@ -8,12 +8,12 @@ def generate_launch_description():
     pkg_share = launch_ros.substitutions.FindPackageShare(package='niagara_model').find('niagara_model')
     default_model_path = os.path.join(pkg_share, 'urdf/DasAutonomeAuto.urdf')
     default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_lidar3d.rviz')
-    world_path=os.path.join(pkg_share, 'world/world_sin.sdf')
+    world_path=os.path.join(pkg_share, 'world/empty_world.sdf')
     use_sim_time = LaunchConfiguration('use_sim_time') 
 
     # Position and orientation
     # [X, Y, Z]
-    position = [0.0, 0.0, 0.5]
+    position = [-6.0, 0.0, 0.5]
     # [Roll, Pitch, Yaw]
     orientation = [0.0, 0.0, 0.0]
     
@@ -63,13 +63,13 @@ def generate_launch_description():
         output='screen'
     )
     
-    joints_setter_lainch = launch_ros.actions.Node(
-        package='niagara_controller_cpp',
-        executable='publish_trajectory',
-        name='publish_trajectory',
+    ackermann_to_twist_converter_node = launch_ros.actions.Node(
+        package='niagara_model',  
+        executable='ackermann_to_twist_converter_node',
+        name='ackermann_to_twist_converter_node',
         output='screen'
     )
-        
+            
     return launch.LaunchDescription([
         
         launch.actions.DeclareLaunchArgument(name='model', default_value=default_model_path,
@@ -84,10 +84,11 @@ def generate_launch_description():
         rviz_node,
         TimerAction(
             actions=[
-                velocity_controller,
-                position_controller
-                # joints_setter_lainch
+                
+                # velocity_controller,
+                # position_controller
+                ackermann_to_twist_converter_node
             ],
-            period='7.0',  # delay in seconds before executing the actions
+            period='5.0',  
         ),
     ])
