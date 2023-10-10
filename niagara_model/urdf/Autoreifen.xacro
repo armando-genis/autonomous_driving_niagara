@@ -95,6 +95,7 @@
         </geometry>
         <material name="black" />
 
+
       </visual>
 
       <collision>
@@ -119,6 +120,13 @@
       <axis xyz="0 0 -1"/>
       <limit effort="${axle_eff_limit}" velocity="${axle_vel_limit}"/>
     </joint>
+
+    <gazebo reference="${lr_prefix}_${fr_prefix}_wheel">
+      <material>Gazebo/Black</material>
+    </gazebo>
+        
+
+    
 
 
   </xacro:macro>
@@ -161,6 +169,10 @@
       <axis xyz="0 0 -1"/>
       <limit effort="${axle_eff_limit}" velocity="${axle_vel_limit}"/>
     </joint>
+
+    <gazebo reference="${lr_prefix}_${fr_prefix}_wheel">
+      <material>Gazebo/Black</material>
+    </gazebo>
 
   </xacro:macro>
 

@@ -29,14 +29,26 @@ source install/setup.bash
 ros2 run ackermann_teleop ackermann_drive_keyop
 ```
 
+
+# City simualtion
+You need to include the path to the directory containing the models directory in the GAZEBO_MODEL_PATH environment variable. To make this change permanent, you can add the above line to your ~/.bashrc file. 
+```bash
+export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:~/ros2_ws/src/autonomous_driving_niagara/city_simulation
+echo "export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:~/ros2_ws/src/autonomous_driving_niagara/city_simulation" >> ~/.bashrc
+source ~/.bashrc
+```
+
 # Kill gazebo
 ```bash
 ps aux | grep gazebo
 kill -9 22656
 ```
 
-## Install
+## Install For simulation
 ```bash
+sudo apt install ros-humble-gazebo-ros-pkgs
+sudo apt install ros-humble-image-pipeline
+
 sudo apt install ros-<distro>-ros2-control ros-<distro>-ros2-controllers
 sudo apt install ros-<distro>-controller-manager
 

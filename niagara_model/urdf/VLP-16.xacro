@@ -59,6 +59,7 @@
 
     <!-- Gazebo requires the velodyne_gazebo_plugins package -->
     <gazebo reference="${name}">
+    <material>Gazebo/Red</material>
       <xacro:if value="${gpu}">
         <sensor type="gpu_ray" name="${name}-VLP16">
           <pose>0 0 0 0 0 0</pose>

@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<robot name="dasautonomeauto" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:property name="pi_lu" value="3.1415926535897931"/>
+    <material name="red">
+        <color rgba="1 0 0 1"/>
+    </material>
+
+    <joint name="zed_camera_link" type="fixed">
+        <parent link="base_link"/>
+        <child link="zed_camera_link"/>
+        <origin xyz="0.6 0 0.5" rpy="0 0 0"/>
+    </joint>
+ 
+    <link name="zed_camera_link">
+      <inertial>
+        <mass value="1e-5" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+      </inertial>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.033 0.175 0.030"/>
+        </geometry>
+      </collision>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.033 0.175 0.030"/>
+        </geometry>
+        <material name="red"/>
+      </visual>
+    </link>
+ 
+ 
+    <joint name="camera_optical_joint" type="fixed">
+        <parent link="zed_camera_link"/>
+        <child link="camera_link_optical"/>
+        <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+    </joint>
+ 
+    <link name="camera_link_optical"></link>
+
+    <gazebo reference="zed_camera_link">
+        <material>Gazebo/Red</material>
+ 
+        <sensor name="zed2" type="depth">
+
+            <pose> 0 0 0 0 0 0 </pose>
+            <visualize>true</visualize>
+            <update_rate>20</update_rate>
+            <camera>
+              <horizontal_fov>1.3962634</horizontal_fov>
+              <image>
+                <width>640</width>
+                <height>480</height>
+                <format>R8G8B8</format>
+              </image>
+              <clip>
+                <near>0.05</near>
+                <far>20.0</far>
+              </clip>
+            </camera>
+
+            <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+                <frame_name>camera_link_optical</frame_name>
+                <cameraName>Zed2</cameraName>
+                <imageTopicName>zed/depth/image_raw</imageTopicName>
+                <cameraInfoTopicName>zed/depth/camera_info</cameraInfoTopicName>
+                <hackBaseline>0.07</hackBaseline>
+                <distortionK1>0.0</distortionK1>
+                <distortionK2>0.0</distortionK2>
+                <distortionK3>0.0</distortionK3>
+                <distortionT1>0.0</distortionT1>
+                <distortionT2>0.0</distortionT2>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+  <!-- ... rest of your robot definition ... -->
+
+</robot>

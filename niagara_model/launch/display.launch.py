@@ -6,14 +6,15 @@ from launch.actions import DeclareLaunchArgument, ExecuteProcess, TimerAction
 
 def generate_launch_description():
     pkg_share = launch_ros.substitutions.FindPackageShare(package='niagara_model').find('niagara_model')
+    
     default_model_path = os.path.join(pkg_share, 'urdf/DasAutonomeAuto.urdf')
-    default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_lidar3d.rviz')
-    world_path=os.path.join(pkg_share, 'world/empty_world.sdf')
+    default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_config_points.rviz')
+    world_path=os.path.join(pkg_share, 'world/city_model.sdf')
     use_sim_time = LaunchConfiguration('use_sim_time') 
 
     # Position and orientation
     # [X, Y, Z]
-    position = [-6.0, 0.0, 0.5]
+    position = [0.0, 0.0, 0.5]
     # [Roll, Pitch, Yaw]
     orientation = [0.0, 0.0, 0.0]
     
@@ -69,6 +70,8 @@ def generate_launch_description():
         name='ackermann_to_twist_converter_node',
         output='screen'
     )
+    
+
             
     return launch.LaunchDescription([
         
@@ -87,8 +90,8 @@ def generate_launch_description():
                 
                 # velocity_controller,
                 # position_controller
-                ackermann_to_twist_converter_node
+                ackermann_to_twist_converter_node,
             ],
-            period='5.0',  
+            period='6.0',  
         ),
     ])
