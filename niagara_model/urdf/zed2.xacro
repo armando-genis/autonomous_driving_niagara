@@ -64,6 +64,7 @@
             </camera>
 
             <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+                <always_on>true</always_on>
                 <frame_name>camera_link_optical</frame_name>
                 <cameraName>Zed2</cameraName>
                 <imageTopicName>zed/depth/image_raw</imageTopicName>
@@ -78,6 +79,5 @@
         </sensor>
     </gazebo>
 
-  <!-- ... rest of your robot definition ... -->
 
 </robot>

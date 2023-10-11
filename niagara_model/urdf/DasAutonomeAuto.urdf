@@ -2,6 +2,8 @@
 <robot name="dasautonomeauto" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 
+
+
     <xacro:arg name="gpu" default="false"/>
     <xacro:property name="gpu" value="$(arg gpu)" />
 
@@ -58,6 +60,8 @@
 
 
     <xacro:include filename="$(find niagara_model)/urdf/zed2.xacro" />
+    <xacro:include filename="$(find niagara_model)/urdf/imu.xacro" />
+
     
 
     <!-- <xacro:include filename="$(find niagara_model)/urdf/sensors.xacro" /> -->

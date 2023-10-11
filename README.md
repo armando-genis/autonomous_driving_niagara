@@ -29,7 +29,6 @@ source install/setup.bash
 ros2 run ackermann_teleop ackermann_drive_keyop
 ```
 
-
 # City simualtion
 You need to include the path to the directory containing the models directory in the GAZEBO_MODEL_PATH environment variable. To make this change permanent, you can add the above line to your ~/.bashrc file. 
 ```bash
