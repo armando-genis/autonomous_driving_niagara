@@ -49,7 +49,30 @@
         <origin xyz="0 0 0.01"/>
     </joint>
 
+
     <gazebo reference="imu_link">
+      <gravity>true</gravity>
+          <sensor name="imu_sensor" type="imu">
+            <always_on>true</always_on>
+            <update_rate>200</update_rate>
+            <visualize>true</visualize>
+            <topic>__default_topic__</topic>
+            <pose>0 0 0 0 0 0</pose>
+              <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+                <topicName>imu_raw</topicName>
+                <update_rate>0</update_rate>
+                <bodyName>imu_link</bodyName>
+                <updateRateHZ>200.0</updateRateHZ>
+                <gaussianNoise>0.0</gaussianNoise>
+                <xyzOffset>0 0 0</xyzOffset>
+                <rpyOffset>0 0 0</rpyOffset>
+                <frameName>base_link</frameName>
+                <initialOrientationAsReference>false</initialOrientationAsReference>
+              </plugin>
+          </sensor>
+      </gazebo>
+
+    <!-- <gazebo reference="imu_link">
         <sensor name="imu_sensor" type="imu">
         <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
             <ros>
@@ -116,6 +139,6 @@
             </linear_acceleration>
             </imu>
         </sensor>
-    </gazebo>
+    </gazebo> -->
 
 </robot>
