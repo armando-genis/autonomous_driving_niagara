@@ -45,9 +45,10 @@ kill -9 22656
 
 ## Install For simulation
 ```bash
-sudo apt install ros-humble-gazebo-ros-pkgs
-sudo apt install ros-humble-image-pipeline
-
+sudo apt install ros-<ros2-distro>-joint-state-publisher-gui
+sudo apt install ros-<ros2-distro>-xacro
+sudo apt install ros-<ros2-distro>-gazebo-ros-pkgs
+sudo apt install ros-<ros2-distro>-ackermann-msgs
 sudo apt install ros-<distro>-ros2-control ros-<distro>-ros2-controllers
 sudo apt install ros-<distro>-controller-manager
 
