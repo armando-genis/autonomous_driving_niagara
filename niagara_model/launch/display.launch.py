@@ -9,7 +9,7 @@ def generate_launch_description():
     
     default_model_path = os.path.join(pkg_share, 'urdf/DasAutonomeAuto.urdf')
     default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_config_points.rviz')
-    world_path=os.path.join(pkg_share, 'world/city_model.sdf')
+    world_path=os.path.join(pkg_share, 'world/w2.sdf')
     use_sim_time = LaunchConfiguration('use_sim_time') 
 
     # Position and orientation

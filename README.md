@@ -43,6 +43,19 @@ ps aux | grep gazebo
 kill -9 22656
 ```
 
+# LION SAM
+```bash
+ros2 launch lio_sam run.launch.py
+```
+
+# LION SAM Instalation
+```bash
+sudo add-apt-repository ppa:borglab/gtsam-release-4.0
+sudo apt update  # not necessary since Bionic
+sudo apt install libgtsam-dev libgtsam-unstable-dev
+sudo snap install cloudcompare
+```
+
 ## Install For simulation
 ```bash
 sudo apt install ros-<ros2-distro>-joint-state-publisher-gui
