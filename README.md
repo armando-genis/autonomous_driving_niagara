@@ -22,12 +22,25 @@ colcon build --packages-select velodyne_gazebo_plugins
 source install/setup.bash
 ```
 
-# Ackermann teleop
+# ACKERMANN TELEOP
 ```bash
 colcon build --packages-select ackermann_teleop
 source install/setup.bash
 ros2 run ackermann_teleop ackermann_drive_keyop
 ```
+
+# LION SAM
+```bash
+ros2 launch lio_sam run.launch.py
+```
+
+# WAYPOINTS MAKER
+```bash
+colcon build --packages-select waypoints_niagara_creator
+source install/setup.bash
+ros2 launch waypoints_niagara_creator waypoints.launch.py
+```
+
 
 # City simualtion
 You need to include the path to the directory containing the models directory in the GAZEBO_MODEL_PATH environment variable. To make this change permanent, you can add the above line to your ~/.bashrc file. 
@@ -43,10 +56,7 @@ ps aux | grep gazebo
 kill -9 22656
 ```
 
-# LION SAM
-```bash
-ros2 launch lio_sam run.launch.py
-```
+
 
 # LION SAM Instalation
 ```bash
