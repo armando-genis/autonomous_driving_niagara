@@ -22,25 +22,30 @@ colcon build --packages-select velodyne_gazebo_plugins
 source install/setup.bash
 ```
 
-# ACKERMANN TELEOP
+# Ackermann keyboard teleop
 ```bash
 colcon build --packages-select ackermann_teleop
 source install/setup.bash
 ros2 run ackermann_teleop ackermann_drive_keyop
 ```
 
-# LION SAM
+# liom sam
 ```bash
 ros2 launch lio_sam run.launch.py
 ```
 
-# WAYPOINTS MAKER
+# Waypoints creator
 ```bash
 colcon build --packages-select waypoints_niagara_creator
 source install/setup.bash
 ros2 launch waypoints_niagara_creator waypoints.launch.py
 ```
-
+# Waypoints loader
+```bash
+colcon build --packages-select waypoints_niagara_loader
+source install/setup.bash
+ros2 launch waypoints_niagara_loader waypointsLoader.launch.py
+```
 
 # City simualtion
 You need to include the path to the directory containing the models directory in the GAZEBO_MODEL_PATH environment variable. To make this change permanent, you can add the above line to your ~/.bashrc file. 
@@ -58,7 +63,7 @@ kill -9 22656
 
 
 
-# LION SAM Instalation
+# Lio sam Instalation
 ```bash
 sudo add-apt-repository ppa:borglab/gtsam-release-4.0
 sudo apt update  # not necessary since Bionic
@@ -68,13 +73,13 @@ sudo snap install cloudcompare
 
 ## Install For simulation
 ```bash
+sudo apt-get install libeigen3-dev
 sudo apt install ros-<ros2-distro>-joint-state-publisher-gui
 sudo apt install ros-<ros2-distro>-xacro
 sudo apt install ros-<ros2-distro>-gazebo-ros-pkgs
 sudo apt install ros-<ros2-distro>-ackermann-msgs
 sudo apt install ros-<distro>-ros2-control ros-<distro>-ros2-controllers
 sudo apt install ros-<distro>-controller-manager
-
 ```
 
 ## Authors

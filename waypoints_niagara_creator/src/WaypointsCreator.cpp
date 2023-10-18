@@ -132,7 +132,6 @@ void WaypointsCreator::writeHeaderToFile() {
     return;
   }
   ofs_ << "x,y,z,yaw,velocity,change_flag" << std::endl;
-
 }
 
 void WaypointsCreator::writePoseToFile(const nav_msgs::msg::Odometry& odom_pos, bool change_flag){
