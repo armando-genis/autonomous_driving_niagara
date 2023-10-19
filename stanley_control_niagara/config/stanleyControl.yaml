@@ -1,0 +1,4 @@
+stanley_control_niagara_node:
+  ros__parameters:
+    max_steer: 0.41
+    wheelbase: 1.80

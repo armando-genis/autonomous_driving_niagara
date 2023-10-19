@@ -47,6 +47,13 @@ source install/setup.bash
 ros2 launch waypoints_niagara_loader waypointsLoader.launch.py
 ```
 
+# Stanley Controller 
+```bash
+colcon build --packages-select stanley_control_niagara
+source install/setup.bash
+ros2 launch stanley_control_niagara stanleyControl.launch.py
+```
+
 # City simualtion
 You need to include the path to the directory containing the models directory in the GAZEBO_MODEL_PATH environment variable. To make this change permanent, you can add the above line to your ~/.bashrc file. 
 ```bash
