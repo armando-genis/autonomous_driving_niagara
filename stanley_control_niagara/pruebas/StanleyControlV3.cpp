@@ -18,8 +18,6 @@
 
 using namespace std;
 
-
-
 class StanleyControl : public rclcpp::Node
 {
 private:
@@ -72,6 +70,8 @@ private:
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_subscriber_;
     rclcpp::Subscription<nav_msgs::msg::Path>::SharedPtr waypoint_subscriber_;
     rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr target_waypoint_pub_;
+
+
 
 public:
     StanleyControl(/* args */);
@@ -225,7 +225,6 @@ void StanleyControl::waypointsComputation(){
     // loop closure is true, when the first and last waypoint are closer than 4.0 meters
     double distance = getDistance(waypoints[first_wp], waypoints[last_wp]);
     waypoints_in_loop = distance < 4.0;
-    
     // print waypoints_in_loop
     // RCLCPP_INFO(this->get_logger(), "waypoints_in_loop: %d", waypoints_in_loop);
 

@@ -26,6 +26,8 @@
 #include <tf2/LinearMath/Quaternion.h>
 #include <nav_msgs/msg/odometry.hpp>
 #include <nav_msgs/msg/path.hpp>
+#include <std_msgs/msg/float32_multi_array.hpp> 
+
 
 
 // C++
@@ -61,6 +63,8 @@ private:
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr waypoint_info_pub_;
     // rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr waypoint_loader_cubelines_pub_;
     rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr waypoint_loader_cubelines_pub_;
+    rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr speed_pub_; 
+
 
 public:
     WaypointsLoader(/* args */);
@@ -74,6 +78,7 @@ WaypointsLoader::WaypointsLoader(/* args */) : Node("waypoints_loader_node")
     waypoint_info_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("waypoints_info_loaded", 10);
     // waypoint_loader_cubelines_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("waypoint_loader_cubelines", 10);
     waypoint_loader_cubelines_pub_ = this->create_publisher<nav_msgs::msg::Path>("waypoint_loader_cubelines", 10);
+    speed_pub_ = this->create_publisher<std_msgs::msg::Float32MultiArray>("waypointarray_speeds", 10);
 
 
     ReadWaypoints();
@@ -169,6 +174,7 @@ geometry_msgs::msg::Quaternion WaypointsLoader::yawToQuaternion(double yaw)
 void WaypointsLoader::visualizeNewWaypoints() {
     visualization_msgs::msg::MarkerArray marker_array;
     visualization_msgs::msg::MarkerArray marker_array_info;
+    std_msgs::msg::Float32MultiArray speed_array;
 
 
     for (size_t i = 0; i < waypoints.size(); ++i) {
@@ -215,11 +221,13 @@ void WaypointsLoader::visualizeNewWaypoints() {
         marker_info.text = oss.str();
 
         marker_array_info.markers.push_back(marker_info);
+        speed_array.data.push_back(waypoints[i](4)); 
 
     }
     
     waypoint_loader_pub_->publish(marker_array);
     waypoint_info_pub_->publish(marker_array_info);
+    speed_pub_->publish(speed_array);
 }
 
 void WaypointsLoader::visualizeNewWaypointsCubeLines(){

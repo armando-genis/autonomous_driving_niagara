@@ -34,7 +34,6 @@ private:
     // size_t closest_waypoint = 0;
     bool waypoints_in_loop = false;
     int average_distance_count = 0;
-    size_t target_waypoint = 0;
 
     vector<Eigen::VectorXd> waypoints; // [x, y, z, yaw, velocity]
     vector<Eigen::VectorXd> waypointsCubeLines;
@@ -53,8 +52,7 @@ private:
     double GetNormaliceAngle(double angle);
     void waypointsComputation();
     double LookAheadDistance(double velocity);
-    void setVelocityToSend();
-    void marketTargetWaypoint();
+    void setVelocity();
 
     // Callbacks
     void odom_callback(const nav_msgs::msg::Odometry::SharedPtr msg);
@@ -72,6 +70,8 @@ private:
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_subscriber_;
     rclcpp::Subscription<nav_msgs::msg::Path>::SharedPtr waypoint_subscriber_;
     rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr target_waypoint_pub_;
+
+
 
 public:
     StanleyControl(/* args */);
@@ -135,8 +135,6 @@ void StanleyControl::pub_callback()
     // sent the size of waypoitns: 
     // RCLCPP_INFO(this->get_logger(), "waypoints.size(): %d", waypointsCubeLines.size());
     waypointsComputation();
-    setVelocityToSend();
-    marketTargetWaypoint();
 }
 
 void StanleyControl::odom_callback(const nav_msgs::msg::Odometry::SharedPtr msg)
@@ -206,13 +204,8 @@ double StanleyControl::getDistance(Eigen::VectorXd point1, Eigen::VectorXd point
     return distance;
 }
 
-void StanleyControl::setVelocityToSend(){
-    if(closest_waypoint == 0){
-        setVelocity = velocities[1];
-    }else{
-        setVelocity = velocities[closest_waypoint];
-    }
-    RCLCPP_INFO(this->get_logger(), "setVelocity: %f", setVelocity);
+void StanleyControl::setVelocity(){
+
 }
 
 void StanleyControl::waypointsComputation(){
@@ -225,7 +218,6 @@ void StanleyControl::waypointsComputation(){
     // loop closure is true, when the first and last waypoint are closer than 4.0 meters
     double distance = getDistance(waypoints[first_wp], waypoints[last_wp]);
     waypoints_in_loop = distance < 4.0;
-    
     // print waypoints_in_loop
     // RCLCPP_INFO(this->get_logger(), "waypoints_in_loop: %d", waypoints_in_loop);
 
@@ -259,13 +251,13 @@ void StanleyControl::waypointsComputation(){
     }
 
     double lookahead_actual = LookAheadDistance(current_velocity_); 
-
-
     // get the velocity of the current waypoint
-    // double current_velocity = velocities[closest_waypoint];
-    // RCLCPP_INFO(this->get_logger(), "current_velocity: %f", current_velocity);
+    double current_velocity = velocities[closest_waypoint];
+    RCLCPP_INFO(this->get_logger(), "current_velocity: %f", current_velocity);
 
+    
 
+    size_t target_waypoint = 0;
     for (int i = closest_waypoint; i <= static_cast<int>(last_wp); i++)
     {
         double curr_distance = getDistance(waypoints[i], current_position);
@@ -286,9 +278,6 @@ void StanleyControl::waypointsComputation(){
     // RCLCPP_INFO(this->get_logger(), "lookahead_actual: %f", lookahead_actual);
     // RCLCPP_INFO(this->get_logger(), "target_waypoint: %d", target_waypoint);
 
-}
-
-void StanleyControl::marketTargetWaypoint(){
     // Publish target waypoint marker
 
     visualization_msgs::msg::Marker marker;
@@ -315,6 +304,8 @@ void StanleyControl::marketTargetWaypoint(){
     
 
     target_waypoint_pub_->publish(marker);
+
+
 }
 
 double StanleyControl::GetNormaliceAngle(double angle){
