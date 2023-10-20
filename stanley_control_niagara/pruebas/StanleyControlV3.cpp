@@ -29,6 +29,8 @@ private:
     double mps_alpha = 0.0; // [m/s]
     double mps_beta = 0.0; // [m/s]
 
+    bool finishedpath = false;
+
     // size_t closest_waypoint = 0;
     bool waypoints_in_loop = false;
     int average_distance_count = 0;
@@ -210,7 +212,13 @@ void StanleyControl::setVelocityToSend(){
     if(closest_waypoint == 0){
         setVelocity = velocities[1];
     }else{
-        setVelocity = velocities[closest_waypoint];
+        if(finishedpath){
+            setVelocity = 0.0;
+
+        }else{
+            setVelocity = velocities[closest_waypoint];
+        }
+        
     }
     RCLCPP_INFO(this->get_logger(), "setVelocity: %f", setVelocity);
 }
@@ -274,11 +282,14 @@ void StanleyControl::waypointsComputation(){
             break;
         }
         // set if is loop true and the current waypoint is the last waypoint set the target waypoint to the first waypoint
-        if (waypoints_in_loop && i == static_cast<int>(last_wp)) {
-            target_waypoint = first_wp;
-        }else{
-            target_waypoint = last_wp;
-        }
+        finishedpath = true;
+        target_waypoint = last_wp;
+        // if (waypoints_in_loop && i == static_cast<int>(last_wp)) {
+        //     target_waypoint = first_wp;
+        // }else{
+        //     target_waypoint = last_wp;
+            
+        // }
         // target_waypoint = last_wp;
     }
 

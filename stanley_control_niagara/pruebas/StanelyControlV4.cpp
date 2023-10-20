@@ -47,7 +47,6 @@ private:
     bool waypoints_in_loop = false;
     int average_distance_count = 0;
     size_t target_waypoint = 0;
-    bool finishedpath = false;
 
     vector<Eigen::VectorXd> waypoints; // [x, y, z, yaw, velocity]
     vector<Eigen::VectorXd> waypointsCubeLines;
@@ -255,11 +254,6 @@ void StanleyControl::setVelocityToSend(){
     if(closest_waypoint == 0){
         setVelocity = velocities[1];
     }else{
-        // if(finishedpath){
-        //     setVelocity = 0.0;
-        // }else{
-        //     setVelocity = velocities[closest_waypoint];
-        // }
         setVelocity = velocities[closest_waypoint];
     }
     // RCLCPP_INFO(this->get_logger(), "setVelocity: %f", setVelocity);
@@ -329,7 +323,6 @@ void StanleyControl::waypointsComputation(){
             target_waypoint = first_wp;
         }else{
             target_waypoint = last_wp;
-            // finishedpath = true;
         }
         // target_waypoint = last_wp;
     }
