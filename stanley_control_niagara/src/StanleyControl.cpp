@@ -70,6 +70,7 @@ private:
     double LookAheadDistance(double velocity);
     void setVelocityToSend();
     void marketTargetWaypoint();
+    
     void computeCrossTrackError();
     void computeSteeringAngle();
 

@@ -47,6 +47,13 @@ source install/setup.bash
 ros2 launch waypoints_niagara_loader waypointsLoader.launch.py
 ```
 
+# Waypoints calculations
+```bash
+colcon build --packages-select waypoints_calculations
+source install/setup.bash
+ros2 launch waypoints_calculations calculation.launch.py
+```
+
 # Stanley Controller 
 ```bash
 colcon build --packages-select stanley_control_niagara
