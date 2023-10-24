@@ -39,7 +39,7 @@
 
 using namespace std;
 
-#include "CubicSpline1D.h"
+// #include "CubicSpline1D.h"
 
 
 class WaypointsLoader : public rclcpp::Node
@@ -49,20 +49,20 @@ private:
     std::string file_path_ = "/home/genis/Music/wp.csv";
     std::ofstream ofs_;
     vector<Eigen::VectorXd> waypoints;
-    vector<Eigen::VectorXd> waypointsCubeLines;
+    // vector<Eigen::VectorXd> waypointsCubeLines;
 
     void pub_callback();
     void ReadWaypoints();
     void visualizeNewWaypoints();
     geometry_msgs::msg::Quaternion yawToQuaternion(double yaw);
-    void visualizeNewWaypointsCubeLines();
+    // void visualizeNewWaypointsCubeLines();
 
 
     rclcpp::TimerBase::SharedPtr timer_;
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr waypoint_loader_pub_;
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr waypoint_info_pub_;
     // rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr waypoint_loader_cubelines_pub_;
-    rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr waypoint_loader_cubelines_pub_;
+    // rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr waypoint_loader_cubelines_pub_;
     rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr speed_pub_; 
 
 
@@ -77,7 +77,7 @@ WaypointsLoader::WaypointsLoader(/* args */) : Node("waypoints_loader_node")
     waypoint_loader_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("waypoints_loaded", 10);
     waypoint_info_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("waypoints_info_loaded", 10);
     // waypoint_loader_cubelines_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>("waypoint_loader_cubelines", 10);
-    waypoint_loader_cubelines_pub_ = this->create_publisher<nav_msgs::msg::Path>("waypoint_loader_cubelines", 10);
+    // waypoint_loader_cubelines_pub_ = this->create_publisher<nav_msgs::msg::Path>("waypoint_loader_cubelines", 10);
     speed_pub_ = this->create_publisher<std_msgs::msg::Float32MultiArray>("waypointarray_speeds", 10);
 
 
@@ -89,25 +89,25 @@ WaypointsLoader::WaypointsLoader(/* args */) : Node("waypoints_loader_node")
     //         waypoint(0), waypoint(1), waypoint(2), waypoint(3), waypoint(4), waypoint(5));
     // }
 
-    vector<double> x, y;
-    for (const auto& waypoint : waypoints) {
-        x.push_back(waypoint[0]);
-        y.push_back(waypoint[1]);
-    }
+    // vector<double> x, y;
+    // for (const auto& waypoint : waypoints) {
+    //     x.push_back(waypoint[0]);
+    //     y.push_back(waypoint[1]);
+    // }
 
-    std::vector<double> t_values(x.size());
-    std::iota(t_values.begin(), t_values.end(), 0);  
-    CubicSpline1D spline_x(t_values, x);
-    CubicSpline1D spline_y(t_values, y);
+    // std::vector<double> t_values(x.size());
+    // std::iota(t_values.begin(), t_values.end(), 0);  
+    // CubicSpline1D spline_x(t_values, x);
+    // CubicSpline1D spline_y(t_values, y);
 
-    for (double t = 0; t < t_values.back(); t += 0.25) {
-        double x_val = spline_x.calc_der0(t);
-        double y_val = spline_y.calc_der0(t);
+    // for (double t = 0; t < t_values.back(); t += 0.25) {
+    //     double x_val = spline_x.calc_der0(t);
+    //     double y_val = spline_y.calc_der0(t);
 
-        Eigen::VectorXd point(2);
-        point << x_val, y_val;
-        waypointsCubeLines.push_back(point);
-    }
+    //     Eigen::VectorXd point(2);
+    //     point << x_val, y_val;
+    //     waypointsCubeLines.push_back(point);
+    // }
 
     RCLCPP_INFO(this->get_logger(), "waypoints_loader_node initialized");
 
@@ -120,7 +120,7 @@ WaypointsLoader::~WaypointsLoader()
 void WaypointsLoader::pub_callback()
 {
     visualizeNewWaypoints();
-    visualizeNewWaypointsCubeLines();
+    // visualizeNewWaypointsCubeLines();
 }
 
 
@@ -230,24 +230,24 @@ void WaypointsLoader::visualizeNewWaypoints() {
     speed_pub_->publish(speed_array);
 }
 
-void WaypointsLoader::visualizeNewWaypointsCubeLines(){
-    nav_msgs::msg::Path path;
-    path.header.stamp = this->now();
-    path.header.frame_id = "odom";
+// void WaypointsLoader::visualizeNewWaypointsCubeLines(){
+//     nav_msgs::msg::Path path;
+//     path.header.stamp = this->now();
+//     path.header.frame_id = "odom";
 
-    for (size_t i = 0; i < waypointsCubeLines.size(); ++i) {
-        geometry_msgs::msg::PoseStamped pose;
-        pose.header.stamp = this->now();
-        pose.header.frame_id = "odom";
-        pose.pose.position.x = waypointsCubeLines[i](0); 
-        pose.pose.position.y = waypointsCubeLines[i](1);
-        pose.pose.position.z = 0; 
+//     for (size_t i = 0; i < waypointsCubeLines.size(); ++i) {
+//         geometry_msgs::msg::PoseStamped pose;
+//         pose.header.stamp = this->now();
+//         pose.header.frame_id = "odom";
+//         pose.pose.position.x = waypointsCubeLines[i](0); 
+//         pose.pose.position.y = waypointsCubeLines[i](1);
+//         pose.pose.position.z = 0; 
 
-        path.poses.push_back(pose);
-    }
+//         path.poses.push_back(pose);
+//     }
 
-    waypoint_loader_cubelines_pub_->publish(path);
-}
+//     waypoint_loader_cubelines_pub_->publish(path);
+// }
 
 // void WaypointsLoader::visualizeNewWaypointsCubeLines(){
 //     visualization_msgs::msg::MarkerArray marker_array;

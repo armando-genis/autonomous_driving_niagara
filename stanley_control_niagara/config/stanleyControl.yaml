@@ -2,8 +2,4 @@ stanley_control_niagara_node:
   ros__parameters:
     max_steer: 0.41
     wheelbase: 1.80
-    lookahead_min: 2.0
-    lookahead_max: 4.0
-    mps_alpha: 1.0
-    mps_beta: 3.5
 
