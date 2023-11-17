@@ -51,7 +51,7 @@
     </link>
 
 
-    <!-- <xacro:VLP-16 parent="base_link" name="velodyne" topic="/points_raw" hz="10" samples="440" gpu="${gpu}"/> -->
+    <xacro:VLP-16 parent="base_link" name="velodyne" topic="/points_raw" hz="10" samples="440" gpu="${gpu}"/>
 
     <xacro:front_wheel_to_base lr_prefix="left" fr_prefix="front" lr_reflect="1" fr_reflect="1" />
     <xacro:front_wheel_to_base lr_prefix="right" fr_prefix="front" lr_reflect="-1" fr_reflect="1" />
@@ -59,7 +59,7 @@
     <xacro:rear_wheel_to_base lr_prefix="right" fr_prefix="rear" lr_reflect="-1" fr_reflect="-1" />
 
 
-    <!-- <xacro:include filename="$(find niagara_model)/urdf/zed2.xacro" /> -->
+    <xacro:include filename="$(find niagara_model)/urdf/zed2.xacro" />
     <xacro:include filename="$(find niagara_model)/urdf/imu.xacro" />
 
     
