@@ -1,4 +1,9 @@
 # autonomous_driving_niagara
+
+** Update Version:**
+
+A new update version has been added where you can modify the scale of the robot along with other improvements. For more details, check out the updated features on [DPU-NaviCar](https://github.com/armando-genis/DPU-NaviCar).
+
 Simulation for an Autonomous golf car for Monterrey Institute of Technology that uses Velodyne LiDAR and a Stereo Camara for environmental perception and an Ackermann steering controller for trajectory tracking.
 
  ## Set up ROS2
